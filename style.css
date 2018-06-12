@@ -11,4 +11,7 @@ button.cell{
     margin: 0;
     outline: none;
     border: 2px solid #adadad;
+    text-align: center;
+    line-height: 50%;
+    font-size: 30px;
 }
