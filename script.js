@@ -2,7 +2,7 @@ $("body").on("contextmenu", false);
 var dimension = 10;
 var arr = generateArray(dimension);
 renderField(dimension);
-generateMines(dimension, 20);
+generateMines(dimension, 96);
 
 
 function generateArray(d){
@@ -51,7 +51,7 @@ function syncArray(){
 }
 
 function designNumber(x, y){
-    var dict = ["", "grey", "green", "blue", "red", "orange", "yellow", "purple","pink", "black"];
+    var dict = ["", "grey", "green", "blue", "red", "orange", "yellow", "purple", "black"];
     return dict[arr[x][y]]
 }
 
