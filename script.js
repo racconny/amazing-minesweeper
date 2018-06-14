@@ -3,7 +3,7 @@ $("body").on("contextmenu", false);
 var dimension = 10;
 var arr = generateArray(dimension);
 var view_arr = generateArray(dimension);
-var difficulty = 0.2;
+var difficulty = 0.1;
 
 renderField(dimension);
 generateMines(dimension, Math.floor((dimension*dimension)*difficulty));
@@ -50,14 +50,17 @@ function syncArray(){
                         }
                     }
 
-                    else {
+                    else if (view_arr[i + 1][j + 1] === 0){
                         if (arr[i + 1][j + 1] === "X"){
+                            content.style.backgroundColor = "white";
                             content.innerHTML = "<i class='fas fa-skull'></i>";
                         }
                         else if (arr[i + 1][j + 1] === 0){
+                            content.style.backgroundColor = "white";
                             content.innerHTML = "";
                         }
                         else {
+                            content.style.backgroundColor = "white";
                             content.innerHTML = "<span style='color: " + designNumber(i + 1, j + 1) + "'>" + arr[i + 1][j + 1] + "</span>";
                         }
                     }
@@ -130,22 +133,43 @@ function renderField(d){
 }
 
 function makeMove(x, y){
-    var content = document.querySelector(".field").childNodes[x - 1].childNodes[y - 1].querySelector(".cell");
-    console.log("Move made in " + (x + 1) + ", " + (y + 1));
-    if (arr[x][y] === "X"){
-        syncArray();
-        console.log("game over");
+        var content = document.querySelector(".field").childNodes[x - 1].childNodes[y - 1].querySelector(".cell");
+        console.log("Move made in " + (x + 1) + ", " + (y + 1));
+        if (arr[x][y] === "X"){
+            syncArray();
+            console.log("game over");
+        }
+        else if (arr[x][y] !== 0){
+            content.style.backgroundColor = "white";
+            content.innerHTML = "<span style='color: " + designNumber(x, y) + "'>" + arr[x][y] + "</span>";
+            view_arr[x][y] = 2;
+        }
+        else {
+            openCloser(x, y);
+        }
     }
-    else if (arr[x][y] !== 0){
-        content.innerHTML = arr[x][y];
-    }
-    else {
-        openCloser(x, y);
-    }
-}
 
 function openCloser(x, y){
-    
+if((view_arr[x][y] !== 2) && (x > 0) && (y > 0) && (x <= dimension) && (y <= dimension)){
+        var content = document.querySelector(".field").childNodes[x - 1].childNodes[y - 1].querySelector(".cell");
+        if (arr[x][y] === 0){
+            content.style.backgroundColor = "white";
+            content.innerHTML = "";
+            view_arr[x][y] = 2;
+            openCloser(x - 1, y - 1);
+            openCloser(x, y - 1);
+            openCloser(x + 1, y - 1);
+            openCloser(x - 1, y);
+            openCloser(x + 1, y);
+            openCloser(x - 1, y + 1);
+            openCloser(x, y + 1);
+            openCloser(x + 1, y + 1);
+        }
+        else {
+            content.style.backgroundColor = "white";
+            content.innerHTML = "<span style='color: " + designNumber(x, y) + "'>" + arr[x][y] + "</span>";
+        }
+    }   
 }
 
 function putFlag(x, y){
