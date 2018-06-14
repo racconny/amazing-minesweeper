@@ -3,10 +3,11 @@ $("body").on("contextmenu", false);
 var dimension = 10;
 var arr = generateArray(dimension);
 var view_arr = generateArray(dimension);
+var difficulty = 0.2;
 
 renderField(dimension);
-generateMines(dimension, Math.floor((dimension*dimension)*0.3));
-console.log(Math.floor((dimension*dimension)*0.8) + " mine(s) generated succesfuly");
+generateMines(dimension, Math.floor((dimension*dimension)*difficulty));
+console.log(Math.floor((dimension*dimension)*difficulty) + " mine(s) generated succesfuly");
 
 function generateArray(d){
     var f = [];
@@ -34,25 +35,41 @@ function generateMines(d, a){
 }
 
 function syncArray(){
-    for (var i = 0; i < dimension; i++){
-        for (var j = 0; j < dimension; j++){
-            if ((arr[i + 1][j + 1] !== "X")
-                 && (arr[i + 1][j + 1] !== 0)){
-                    document.querySelector(".field")
-                    .childNodes[i]
-                    .childNodes[j]
-                    .querySelector(".cell")
-                    .innerHTML = "<span style='color: " + designNumber(i + 1, j + 1) + "'>" + arr[i + 1][j + 1] + "</span>";
-            }
-            if ((arr[i + 1][j + 1] === "X")){
-                    document.querySelector(".field")
-                    .childNodes[i]
-                    .childNodes[j]
-                    .querySelector(".cell")
-                    .innerHTML = "<span class='fas fa-skull'></span>";
+    var content;
+        for (var i = 0; i < dimension; i++){
+            for (var j = 0; j < dimension; j++){
+                content = document.querySelector(".field").childNodes[i].childNodes[j].querySelector(".cell");
+                    if (view_arr[i + 1][j + 1] === 1){
+                        if (arr[i + 1][j + 1] === "X"){
+                            content.innerHTML = "<i class='fas fa-flag'></i>";
+                        }
+                        else {
+                            content.style.backgroundColor = "#ff4f4f";
+                            content.style.color = "white";
+                            content.innerHTML = '<i class="fas fa-times"></i>';
+                        }
+                    }
+
+                    else {
+                        if (arr[i + 1][j + 1] === "X"){
+                            content.innerHTML = "<i class='fas fa-skull'></i>";
+                        }
+                        else if (arr[i + 1][j + 1] === 0){
+                            content.innerHTML = "";
+                        }
+                        else {
+                            content.innerHTML = "<span style='color: " + designNumber(i + 1, j + 1) + "'>" + arr[i + 1][j + 1] + "</span>";
+                        }
+                    }
+                    // if ((arr[i + 1][j + 1] !== "X")
+                    //     && (arr[i + 1][j + 1] !== 0)){
+                    //         content.innerHTML = "<span style='color: " + designNumber(i + 1, j + 1) + "'>" + arr[i + 1][j + 1] + "</span>";
+                    // }
+                    // if ((arr[i + 1][j + 1] === "X")){
+                    //         content.innerHTML = "<span class='fas fa-skull'></span>";
+                    // }
             }
         }
-    }
 }
 
 function designNumber(x, y){
@@ -113,11 +130,22 @@ function renderField(d){
 }
 
 function makeMove(x, y){
+    var content = document.querySelector(".field").childNodes[x - 1].childNodes[y - 1].querySelector(".cell");
     console.log("Move made in " + (x + 1) + ", " + (y + 1));
     if (arr[x][y] === "X"){
         syncArray();
         console.log("game over");
     }
+    else if (arr[x][y] !== 0){
+        content.innerHTML = arr[x][y];
+    }
+    else {
+        openCloser(x, y);
+    }
+}
+
+function openCloser(x, y){
+    
 }
 
 function putFlag(x, y){
@@ -129,8 +157,9 @@ function putFlag(x, y){
     }
     else {
         f = 0;
-        aview_arr[x][y] = 0;
+        view_arr[x][y] = 0;
     }
+
     ///---////
 
     if (f === 1){
