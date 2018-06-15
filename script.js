@@ -3,7 +3,7 @@ $("body").on("contextmenu", false);
 var dimension = 10;
 var arr = generateArray(dimension);
 var view_arr = generateArray(dimension);
-var difficulty = 0.1;
+var difficulty = 0.05;
 
 renderField(dimension);
 generateMines(dimension, Math.floor((dimension*dimension)*difficulty));
@@ -137,6 +137,7 @@ function makeMove(x, y){
         console.log("Move made in " + (x + 1) + ", " + (y + 1));
         if (arr[x][y] === "X"){
             syncArray();
+            disableAll();
             console.log("game over");
         }
         else if (arr[x][y] !== 0){
@@ -150,12 +151,23 @@ function makeMove(x, y){
     }
 
 function openCloser(x, y){
-if((view_arr[x][y] !== 2) && (x > 0) && (y > 0) && (x <= dimension) && (y <= dimension)){
+if((view_arr[x][y] !== 2) 
+    && (x > 0) && (y > 0)
+    && (x <= dimension) 
+    && (y <= dimension) 
+    && (view_arr[x][y]) !== 1){
         var content = document.querySelector(".field").childNodes[x - 1].childNodes[y - 1].querySelector(".cell");
         if (arr[x][y] === 0){
+            if (view_arr[x][y] === 1){
+            content.style.backgroundColor = "white";
+            content.innerHTML = "<i class='fas fa-flag'></i>";
+            view_arr[x][y] = 2;
+            }
+            else if (view_arr[x][y] === 0){
             content.style.backgroundColor = "white";
             content.innerHTML = "";
             view_arr[x][y] = 2;
+            }
             openCloser(x - 1, y - 1);
             openCloser(x, y - 1);
             openCloser(x + 1, y - 1);
@@ -165,33 +177,48 @@ if((view_arr[x][y] !== 2) && (x > 0) && (y > 0) && (x <= dimension) && (y <= dim
             openCloser(x, y + 1);
             openCloser(x + 1, y + 1);
         }
+        else if (view_arr[x][y] === 1){
+            content.style.backgroundColor = "#d6d6d6";
+            content.innerHTML = "<i class='fas fa-flag'></i>";
+        }
         else {
             content.style.backgroundColor = "white";
             content.innerHTML = "<span style='color: " + designNumber(x, y) + "'>" + arr[x][y] + "</span>";
         }
     }   
+    //in cooperation with Igor Kohut
 }
 
 function putFlag(x, y){
     var content = document.querySelector(".field").childNodes[x - 1].childNodes[y - 1].querySelector(".cell");
     var f;
-    if (view_arr[x][y] === 0){
-        f = 1;
-        view_arr[x][y] = 1;
-    }
-    else {
-        f = 0;
-        view_arr[x][y] = 0;
-    }
+    if (view_arr[x][y] !== 2){
+        if (view_arr[x][y] === 0){
+            f = 1;
+            view_arr[x][y] = 1;
+        }
+        else {
+            f = 0;
+            view_arr[x][y] = 0;
+        }
 
-    ///---////
+        ///---////
 
-    if (f === 1){
-        content.innerHTML = "<i class='fas fa-flag'></i>";
+        if (f === 1){
+            content.innerHTML = "<i class='fas fa-flag'></i>";
+        }
+        else {
+            content.innerHTML = "";
+        }
     }
-    else {
-        content.innerHTML = "";
-    }
+}
 
+function disableAll(){
+    var content;
+    for (var i = 0; i < dimension; i++){
+        for (var j = 0; j < dimension; j++){
+            content = document.querySelector(".field").childNodes[i].childNodes[j].querySelector(".cell");
+            content.setAttribute("disabled","disabled");
+        }
     }
-
+}
