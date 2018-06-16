@@ -7,8 +7,37 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
     <script defer src="script.js"></script>
+    <script defer src="user_interface.js"></script>
 </head>
 <body>
-    <table class="field"></table>
+    <center><table class="field"></table></center>
+    <div id="modalWindow" class="modal">
+        <div class="modalContent">
+            <div class="title">
+                <div class="title_text">Settings</div>
+            </div>
+            <p style="color: grey; padding-left: 20px;">Field size (n*n)</p>
+
+            <div class="range-block">
+                <div class="range-body">
+                    <input type="range" name="size_range" id="size_range" min="5" max="20" value="10"> 
+                </div>
+                <div class="range-counter">
+                    <p id="size-range-counter" style="color: grey; font-size: 30px;">0</p>
+                </div>
+            </div>
+
+            <p style="color: grey; padding-left: 20px;">Difficulty</p>
+            <div class="range-block">
+                <div class="range-body">
+                    <input type="range" name="difficulty_range" id="difficulty_range" min="50" max="300" value="100"> 
+                </div>
+                <div class="range-counter">
+                    <p id="range-counter" style="color: grey; font-size: 30px;">0</p>
+                </div>
+            </div>
+            <center><button class="playBtn">Play</button></center>
+        </div>
+    </div>
 </body>
 </html>

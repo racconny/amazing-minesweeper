@@ -1,13 +1,16 @@
 $("body").on("contextmenu", false);
+$(function(){
+    showModal();
+    var val = $("#size_range").val();
+    $("#size-range-counter").html(val);
+    var val = $("#difficulty_range").val()/100;
+    $("#range-counter").html(val);
+})
 
-var dimension = 10;
-var arr = generateArray(dimension);
-var view_arr = generateArray(dimension);
-var difficulty = 0.05;
-
-renderField(dimension);
-generateMines(dimension, Math.floor((dimension*dimension)*difficulty));
-console.log(Math.floor((dimension*dimension)*difficulty) + " mine(s) generated succesfuly");
+var dimension;
+var difficulty;
+var arr;
+var view_arr;
 
 function generateArray(d){
     var f = [];
@@ -45,22 +48,22 @@ function syncArray(){
                         }
                         else {
                             content.style.backgroundColor = "#ff4f4f";
-                            content.style.color = "white";
+                            content.style.color = "#fff2e2";
                             content.innerHTML = '<i class="fas fa-times"></i>';
                         }
                     }
 
                     else if (view_arr[i + 1][j + 1] === 0){
                         if (arr[i + 1][j + 1] === "X"){
-                            content.style.backgroundColor = "white";
+                            content.style.backgroundColor = "#fff2e2";
                             content.innerHTML = "<i class='fas fa-skull'></i>";
                         }
                         else if (arr[i + 1][j + 1] === 0){
-                            content.style.backgroundColor = "white";
+                            content.style.backgroundColor = "#fff2e2";
                             content.innerHTML = "";
                         }
                         else {
-                            content.style.backgroundColor = "white";
+                            content.style.backgroundColor = "#fff2e2";
                             content.innerHTML = "<span style='color: " + designNumber(i + 1, j + 1) + "'>" + arr[i + 1][j + 1] + "</span>";
                         }
                     }
@@ -141,7 +144,7 @@ function makeMove(x, y){
             console.log("game over");
         }
         else if (arr[x][y] !== 0){
-            content.style.backgroundColor = "white";
+            content.style.backgroundColor = "#fff2e2";
             content.innerHTML = "<span style='color: " + designNumber(x, y) + "'>" + arr[x][y] + "</span>";
             view_arr[x][y] = 2;
         }
@@ -159,12 +162,12 @@ if((view_arr[x][y] !== 2)
         var content = document.querySelector(".field").childNodes[x - 1].childNodes[y - 1].querySelector(".cell");
         if (arr[x][y] === 0){
             if (view_arr[x][y] === 1){
-            content.style.backgroundColor = "white";
+            content.style.backgroundColor = "#fff2e2";
             content.innerHTML = "<i class='fas fa-flag'></i>";
             view_arr[x][y] = 2;
             }
             else if (view_arr[x][y] === 0){
-            content.style.backgroundColor = "white";
+            content.style.backgroundColor = "#fff2e2";
             content.innerHTML = "";
             view_arr[x][y] = 2;
             }
@@ -182,7 +185,7 @@ if((view_arr[x][y] !== 2)
             content.innerHTML = "<i class='fas fa-flag'></i>";
         }
         else {
-            content.style.backgroundColor = "white";
+            content.style.backgroundColor = "#fff2e2";
             content.innerHTML = "<span style='color: " + designNumber(x, y) + "'>" + arr[x][y] + "</span>";
         }
     }   
