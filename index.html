@@ -8,8 +8,17 @@
     <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
     <script defer src="script.js"></script>
     <script defer src="user_interface.js"></script>
+    <script src="modals.js"></script>
 </head>
 <body>
+    <div class="info-label">
+            <div class="timer"><i class="fas fa-hourglass-half" style="margin-right: 12px"></i><span class="timer-val">00:00</span></div>
+            <div class="flag-counter"><i class='fas fa-flag' style="color: white; margin-right: 8px"></i>
+                <span class="flags">0</span>/
+                <span class="mines">0</span>
+            </div>
+    </div>
+    <div class="pseudoblock"></div>
     <center><table class="field"></table></center>
     <div id="modalWindow" class="modal">
         <div class="modalContent">
@@ -23,21 +32,41 @@
                     <input type="range" name="size_range" id="size_range" min="5" max="20" value="10"> 
                 </div>
                 <div class="range-counter">
-                    <p id="size-range-counter" style="color: grey; font-size: 30px;">0</p>
+                    <p id="size-range-counter" style="color: grey; font-size: 30px;">10</p>
                 </div>
             </div>
 
             <p style="color: grey; padding-left: 20px;">Difficulty</p>
             <div class="range-block">
                 <div class="range-body">
-                    <input type="range" name="difficulty_range" id="difficulty_range" min="50" max="300" value="100"> 
+                    <input type="range" name="difficulty_range" id="difficulty_range" min="50" max="300" value="100" list="dif_list">
+                    <datalist id="dif_list">
+                        <option value="50" label="easy">
+                        <option value="75">
+                        <option value="100">
+                        <option value="125">
+                        <option value="150">
+                        <option value="175" label="normal">
+                        <option value="200">
+                        <option value="225">
+                        <option value="250">
+                        <option value="275">
+                        <option value="300" label="hard">
+                    </datalist>
                 </div>
                 <div class="range-counter">
-                    <p id="range-counter" style="color: grey; font-size: 30px;">0</p>
+                    <p id="range-counter" style="color: grey; font-size: 30px;">1</p>
                 </div>
             </div>
             <center><button class="playBtn">Play</button></center>
         </div>
     </div>
+    <div class="pauseModal">
+        <div class="pause-modal-content">
+            <center><div class="pause-icon"><i class="fas fa-pause"></i></div></center>
+            <center><div style="color: white; font-size: 35px;" class="pause-sign">Paused</div></center>
+        </div>
+    </div>
+
 </body>
 </html>

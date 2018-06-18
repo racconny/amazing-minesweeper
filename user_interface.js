@@ -16,6 +16,12 @@ $("#size_range").on("input",function(){
     $("#size-range-counter").html(val);
 })
 
+$("body").on("keypress", function(e){
+    if (e.which === 32){
+        pause();
+    }
+})
+
 function createGame(d ,dif){
     dimension = d;
     difficulty = dif;
@@ -26,9 +32,13 @@ function createGame(d ,dif){
     renderField(dimension);
     generateMines(dimension, Math.floor((dimension*dimension)*difficulty));
     console.log(Math.floor((dimension*dimension)*difficulty) + " mine(s) generated succesfuly");
+    mines = (Math.floor((dimension*dimension)*difficulty));
+    $(".mines").html((Math.floor((dimension*dimension)*difficulty)));
 }
 
 function showModal(){
     $(".modal").css("display","block");
 }
+
+
 

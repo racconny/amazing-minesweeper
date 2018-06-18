@@ -1,16 +1,26 @@
 $("body").on("contextmenu", false);
 $(function(){
     showModal();
-    var val = $("#size_range").val();
-    $("#size-range-counter").html(val);
-    var val = $("#difficulty_range").val()/100;
-    $("#range-counter").html(val);
 })
 
 var dimension;
 var difficulty;
 var arr;
 var view_arr;
+var mines;
+var flags = 0;
+var ticks = 0;
+var isPaused = false;
+
+function pause(){
+    isPaused = !isPaused;
+    if (isPaused){
+        showPauseModal();
+    }
+    else {
+        closePauseModal();
+    }
+}
 
 function generateArray(d){
     var f = [];
@@ -20,6 +30,7 @@ function generateArray(d){
             f[i][j] = 0;
         }
     }
+    console.log("Array created");
     return f;
 }
 
@@ -133,6 +144,8 @@ function renderField(d){
             row.appendChild(cell);
         }
     }
+    console.log("Field rendered succesfully");
+    clock.start();
 }
 
 function makeMove(x, y){
@@ -141,7 +154,8 @@ function makeMove(x, y){
         if (arr[x][y] === "X"){
             syncArray();
             disableAll();
-            console.log("game over");
+            clock.stop();
+            alert("game over");
         }
         else if (arr[x][y] !== 0){
             content.style.backgroundColor = "#fff2e2";
@@ -150,6 +164,10 @@ function makeMove(x, y){
         }
         else {
             openCloser(x, y);
+        }
+
+        if (flags === mines){
+            checkVictory();
         }
     }
 
@@ -187,6 +205,7 @@ if((view_arr[x][y] !== 2)
         else {
             content.style.backgroundColor = "#fff2e2";
             content.innerHTML = "<span style='color: " + designNumber(x, y) + "'>" + arr[x][y] + "</span>";
+            view_arr[x][y] = 2;
         }
     }   
     //in cooperation with Igor Kohut
@@ -199,10 +218,16 @@ function putFlag(x, y){
         if (view_arr[x][y] === 0){
             f = 1;
             view_arr[x][y] = 1;
+            console.log("Flag put on " + x + ", " + y);
+            flags++;
+            $(".flags").html(flags);
         }
         else {
             f = 0;
             view_arr[x][y] = 0;
+            console.log("Flag taken from " + x + ", " + y);
+            flags--;
+            $(".flags").html(flags);
         }
 
         ///---////
@@ -212,6 +237,10 @@ function putFlag(x, y){
         }
         else {
             content.innerHTML = "";
+        }
+
+        if (flags === mines){
+            checkVictory();
         }
     }
 }
@@ -225,3 +254,77 @@ function disableAll(){
         }
     }
 }
+
+function checkUnminned(){
+    var unminned = 0;
+    for (var i = 0; i <= dimension; i++){
+        for (var j = 0; j <= dimension; j++){
+            if (view_arr[i][j] === 2){
+                unminned++;
+            }
+        }
+    }
+    
+    return unminned;
+}
+
+function checkVictory(){
+    if ((((dimension*dimension) - checkUnminned()) - flags) === 0){
+        console.log(checkUnminned());
+        alert("Your time is " + toTimeString(ticks));
+        disableAll();
+        clock.stop();
+        return true;
+    }
+}
+
+function toTimeString(n){
+    var m = Math.floor(ticks / 60);
+    var s = Math.floor(ticks) % 60;
+    if (m < 10) {
+        m = "0" + m;
+    }
+    if (s < 10) {
+        s = "0" + s;
+    }
+
+    return m + ":" + s
+}
+
+
+// --- HERE GOING TO BE A TIMER ---///
+
+var clock = {
+    "interval" : 0,
+    "state" : 0,
+
+    "makeTick" : function(){
+        this.ticks++;
+        t = ticks;
+        $(".timer-val").html(toTimeString(ticks));
+    },
+
+    "start" : function(){
+        if (this.state !== 1){
+            this.interval = setInterval(this.makeTick, 1000);
+            this.state = 1;
+        }
+    },
+
+    "pause" : function(){
+        clearInterval(this.interval);
+        console.log("Clock paused");
+        this.state = 2;
+    },
+
+    "stop" : function(){
+        clearInterval(this.interval);
+        this.interval = 0;
+        console.log("Clock stopped");
+    },
+
+    "getTicks" : function(){
+        console.log(ticks);
+    }
+}
+
