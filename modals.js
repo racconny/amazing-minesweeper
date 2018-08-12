@@ -1,7 +1,9 @@
 function showPauseModal(){
-    $(".pauseModal").css("display","block");
+    $(".pauseModal").fadeIn(200);
+    clock.pause();
 }
 
 function closePauseModal(){
-    $(".pauseModal").css("display","none");
+    $(".pauseModal").fadeOut(200);
+    clock.start();
 }

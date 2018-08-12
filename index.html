@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, user-scalable=no" />
     <title>Minesweeper</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
@@ -17,6 +19,17 @@
                 <span class="flags">0</span>/
                 <span class="mines">0</span>
             </div>
+            <button class="pause-btn" onclick="pause()">
+                <i class="fas fa-pause"></i>
+            </button>
+    </div>
+    <div class="pauseModal">
+        <div class="pause-modal-content">
+            <center><div class="pause-icon"><i class="fas fa-pause"></i></div></center>
+            <center><div style="color: white; font-size: 35px;" class="pause-sign">Paused</div></center>
+            <center><div class="white-divider"></div></center>
+            <center><button style="color: white; font-size: 40px; margin-top: 40px;" class="pause-sign no-btn">Restart</button></center>
+        </div>
     </div>
     <div class="pseudoblock"></div>
     <center><table class="field"></table></center>
@@ -59,12 +72,6 @@
                 </div>
             </div>
             <center><button class="playBtn">Play</button></center>
-        </div>
-    </div>
-    <div class="pauseModal">
-        <div class="pause-modal-content">
-            <center><div class="pause-icon"><i class="fas fa-pause"></i></div></center>
-            <center><div style="color: white; font-size: 35px;" class="pause-sign">Paused</div></center>
         </div>
     </div>
 

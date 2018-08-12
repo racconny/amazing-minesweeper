@@ -16,7 +16,7 @@ $("#size_range").on("input",function(){
     $("#size-range-counter").html(val);
 })
 
-$("body").on("keypress", function(e){
+$("document").on("keypress", function(e){
     if (e.which === 32){
         pause();
     }

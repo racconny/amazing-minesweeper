@@ -17,12 +17,24 @@ button.cell{
     outline: none;
     border: none;
     text-align: center;
+    position: relative;
     line-height: 50%;
     font-size: 30px;
 }
 
 .fa-flag{
     color: #fc7979;
+}
+
+.pause-btn{
+    display: block;
+    float: right;
+    outline: none;
+    padding-right: 60px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 25px;
 }
 
 .playBtn{
@@ -44,11 +56,11 @@ button.cell{
 
 .modal{
     display: none;
-    position: fixed;
-    z-index: 1;
+    position: absolute;
+    z-index: 250;
     top: 0;
     left: 0;
-    height: 100%;
+    height: 100vh;
     width: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.5);
@@ -57,7 +69,9 @@ button.cell{
 .modalContent{
     background-color: #ffffff;
     margin: 10% auto;
+    display: block;
     width: 80%;
+    margin-top: 15vh;
     box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),
                 0 7px 20px 0 rgba(0,0,0,0.17);
 }
@@ -103,7 +117,7 @@ button.cell{
 }
 
 .info-label{
-    width: 100%;
+    width: 100vw;
     height: auto;
     padding: 5px;
     padding-left: 20px; 
@@ -113,7 +127,7 @@ button.cell{
     background-color: black;
     margin: 0;
     transition: .3s;
-    z-index: 30;
+    z-index: 300;
 }
 
 .info-label:hover{
@@ -138,6 +152,7 @@ button.cell{
     height: 100%;
     background-color: black;
     position: fixed;
+    overflow: hidden;
 }
 
 .pause-icon, .pause-modal{
@@ -146,5 +161,18 @@ button.cell{
 
 .pause-icon{
     font-size: 70px;
-    margin-top: 30vh;
+    margin-top: 25vh;
+}
+
+.white-divider{
+    width: 60vw;
+    height: 1px;
+    background:white;
+    margin-top: 30px;
+}
+
+.no-btn{
+    background: none;
+    border: none;
+    outline: none;
 }
