@@ -78,13 +78,6 @@ function syncArray(){
                             content.innerHTML = "<span style='color: " + designNumber(i + 1, j + 1) + "'>" + arr[i + 1][j + 1] + "</span>";
                         }
                     }
-                    // if ((arr[i + 1][j + 1] !== "X")
-                    //     && (arr[i + 1][j + 1] !== 0)){
-                    //         content.innerHTML = "<span style='color: " + designNumber(i + 1, j + 1) + "'>" + arr[i + 1][j + 1] + "</span>";
-                    // }
-                    // if ((arr[i + 1][j + 1] === "X")){
-                    //         content.innerHTML = "<span class='fas fa-skull'></span>";
-                    // }
             }
         }
 }
@@ -208,7 +201,6 @@ if((view_arr[x][y] !== 2)
             view_arr[x][y] = 2;
         }
     }   
-    //in cooperation with Igor Kohut
 }
 
 function putFlag(x, y){
@@ -326,5 +318,8 @@ var clock = {
     "getTicks" : function(){
         console.log(ticks);
     }
+}
+function restart(){
+    alert("coming soon!");
 }
 

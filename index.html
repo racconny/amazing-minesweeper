@@ -19,7 +19,7 @@
                 <span class="flags">0</span>/
                 <span class="mines">0</span>
             </div>
-            <button class="pause-btn" onclick="pause()">
+            <button style="display: none;" class="pause-btn" onclick="pause()">
                 <i class="fas fa-pause"></i>
             </button>
     </div>
@@ -28,7 +28,7 @@
             <center><div class="pause-icon"><i class="fas fa-pause"></i></div></center>
             <center><div style="color: white; font-size: 35px;" class="pause-sign">Paused</div></center>
             <center><div class="white-divider"></div></center>
-            <center><button style="color: white; font-size: 40px; margin-top: 40px;" class="pause-sign no-btn">Restart</button></center>
+            <center><button onclick="restart()" style="color: white; font-size: 40px; margin-top: 40px;" class="pause-sign no-btn">Restart</button></center>
         </div>
     </div>
     <div class="pseudoblock"></div>
@@ -36,7 +36,7 @@
     <div id="modalWindow" class="modal">
         <div class="modalContent">
             <div class="title">
-                <div class="title_text">Settings</div>
+                <div class="title_text" style="border-radius: 5px;">Settings</div>
             </div>
             <p style="color: grey; padding-left: 20px;">Field size (n*n)</p>
 

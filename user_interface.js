@@ -16,7 +16,7 @@ $("#size_range").on("input",function(){
     $("#size-range-counter").html(val);
 })
 
-$("document").on("keypress", function(e){
+$("body").on("keypress", function(e){
     if (e.which === 32){
         pause();
     }
@@ -26,6 +26,7 @@ function createGame(d ,dif){
     dimension = d;
     difficulty = dif;
 
+    document.querySelector(".pause-btn").style.display = "block";
     arr = generateArray(dimension);
     view_arr = generateArray(dimension);
 

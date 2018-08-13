@@ -68,6 +68,7 @@ button.cell{
 
 .modalContent{
     background-color: #ffffff;
+    border-radius: 5px;
     margin: 10% auto;
     display: block;
     width: 80%;
@@ -78,6 +79,7 @@ button.cell{
 
 .title{
     width: 100%;
+    border-radius: 5px 5px 0 0;
     height: 40px;
     background-color: rgb(255, 145, 2);
     line-height: 40px;
