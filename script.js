@@ -11,6 +11,7 @@ var mines;
 var flags = 0;
 var ticks = 0;
 var isPaused = false;
+var movesCount = 0;
 
 function pause(){
     isPaused = !isPaused;
@@ -142,6 +143,10 @@ function renderField(d){
 }
 
 function makeMove(x, y){
+    if (movesCount === 0 && arr[x][y] === "X"){
+        renderSuitableField(x,y);
+    }
+    movesCount++;
         var content = document.querySelector(".field").childNodes[x - 1].childNodes[y - 1].querySelector(".cell");
         console.log("Move made in " + (x + 1) + ", " + (y + 1));
         if (arr[x][y] === "X"){
@@ -149,6 +154,7 @@ function makeMove(x, y){
             disableAll();
             clock.stop();
             alert("game over");
+            document.querySelector(".pause-btn").style.display = "none";
         }
         else if (arr[x][y] !== 0){
             content.style.backgroundColor = "#fff2e2";
@@ -162,6 +168,33 @@ function makeMove(x, y){
         if (flags === mines){
             checkVictory();
         }
+    }
+
+    function renderSuitableField(x, y){
+        arr = [];
+        arr = generateArray(dimension);
+        generateMines(dimension, Math.floor((dimension*dimension)*difficulty));
+        console.log("Created another field");
+        if (arr[x][y] === "X"){
+            renderSuitableField(x, y);
+        } 
+        console.log("You opened a cell with mine, so I generated another field, 'Cause I'm not a rat.")
+    }
+
+function createGame(d ,dif){
+        movesCount = 0;
+        dimension = d;
+        difficulty = dif;
+    
+        document.querySelector(".pause-btn").style.display = "block";
+        arr = generateArray(dimension);
+        view_arr = generateArray(dimension);
+    
+        renderField(dimension);
+        generateMines(dimension, Math.floor((dimension*dimension)*difficulty));
+        console.log(Math.floor((dimension*dimension)*difficulty) + " mine(s) generated succesfuly");
+        mines = (Math.floor((dimension*dimension)*difficulty));
+        $(".mines").html((Math.floor((dimension*dimension)*difficulty)));
     }
 
 function openCloser(x, y){

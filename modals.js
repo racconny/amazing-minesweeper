@@ -7,3 +7,9 @@ function closePauseModal(){
     $(".pauseModal").fadeOut(200);
     clock.start();
 }
+
+var confirmModal = {
+    "show" : function(){
+        alert("works");
+    }
+}
