@@ -11,15 +11,18 @@ var mines;
 var flags = 0;
 var ticks = 0;
 var isPaused = false;
+var isGameStarted = false;
 var movesCount = 0;
 
 function pause(){
+    if (isGameStarted){
     isPaused = !isPaused;
     if (isPaused){
         showPauseModal();
     }
     else {
         closePauseModal();
+        }
     }
 }
 
@@ -154,7 +157,9 @@ function makeMove(x, y){
             disableAll();
             clock.stop();
             alert("game over");
-            document.querySelector(".pause-btn").style.display = "none";
+            isGameStarted = false;
+            document.querySelector(".pause-btn").setAttribute("onclick","restart()");
+            document.querySelector(".pause-btn").innerHTML = "<i class='fas fa-redo-alt'></i>";
         }
         else if (arr[x][y] !== 0){
             content.style.backgroundColor = "#fff2e2";
@@ -185,6 +190,7 @@ function createGame(d ,dif){
         movesCount = 0;
         dimension = d;
         difficulty = dif;
+        isGameStarted = true;
     
         document.querySelector(".pause-btn").style.display = "block";
         arr = generateArray(dimension);
@@ -353,6 +359,6 @@ var clock = {
     }
 }
 function restart(){
-    alert("coming soon!");
+    location.reload();
 }
 

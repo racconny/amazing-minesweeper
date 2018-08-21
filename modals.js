@@ -13,3 +13,4 @@ var confirmModal = {
         alert("works");
     }
 }
+
